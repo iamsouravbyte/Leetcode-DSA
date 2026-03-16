@@ -6,7 +6,7 @@
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode(0) # Creates a dummy node
-        current = dummy
+        current = dummy # Temp node to store the dummy node
 
         while list1 and list2:
             if list1.val < list2.val:
