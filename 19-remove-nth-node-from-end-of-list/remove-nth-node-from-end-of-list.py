@@ -10,13 +10,16 @@ class Solution:
         fast = dummy
         slow = dummy
 
+        # Move pointer n+1 ahead
         for _ in range(n+1):
             fast = fast.next
 
+        # Move both pointers until fast reaches end
         while fast:
             fast = fast.next
             slow = slow.next
 
+        # Remove the nth node
         slow.next = slow.next.next
 
         return dummy.next
