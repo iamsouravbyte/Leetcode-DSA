@@ -5,26 +5,32 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        heap = []
+        if not lists:
+            return None
 
-        # Step 1: Push first node of each list into heap
-        for i, l in enumerate(lists):
-            if l:
-                heapq.heappush(heap, (l.val, i, l))
-        
-        # Step 2: Create dummy node
-        dummy = ListNode(0)
-        curr = dummy
+        def mergeTwoLists(l1, l2):
+            dummy = ListNode(0)
+            curr = dummy
 
-        # Step 3: Process heap
-        while heap:
-            val, i, node = heapq.heappop(heap)
-            
-            curr.next = node
-            curr = curr.next
+            while l1 and l2:
+                if l1.val < l2.val:
+                    curr.next = l1
+                    l1 = l1.next
+                else:
+                    curr.next = l2
+                    l2 = l2.next
+                curr = curr.next
 
-            # If next node exists, push into heap
-            if node.next:
-                heapq.heappush(heap, (node.next.val, i, node.next))
+            if l1:
+                curr.next = l1
+            if l2:
+                curr.next = l2
 
-        return dummy.next
+            return dummy.next
+
+        result = lists[0]
+
+        for i in range(1, len(lists)):
+            result = mergeTwoLists(result, lists[i])
+
+        return result
